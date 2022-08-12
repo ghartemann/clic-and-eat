@@ -68,6 +68,10 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Userlist::class, inversedBy: 'recipes')]
     private Collection $userlists;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Dish $dishType = null;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -303,6 +307,18 @@ class Recipe
     public function removeUserlist(Userlist $userlist): self
     {
         $this->userlists->removeElement($userlist);
+
+        return $this;
+    }
+
+    public function getDishType(): ?Dish
+    {
+        return $this->dishType;
+    }
+
+    public function setDishType(?Dish $dishType): self
+    {
+        $this->dishType = $dishType;
 
         return $this;
     }
