@@ -72,10 +72,14 @@ class Recipe
     #[ORM\JoinColumn(nullable: false)]
     private ?Dish $dishType = null;
 
+    #[ORM\ManyToMany(targetEntity: IngredientRecipe::class, mappedBy: 'Recipe')]
+    private Collection $recipeIngredients;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
         $this->userlists = new ArrayCollection();
+        $this->recipeIngredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -319,6 +323,33 @@ class Recipe
     public function setDishType(?Dish $dishType): self
     {
         $this->dishType = $dishType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, IngredientRecipe>
+     */
+    public function getRecipeIngredients(): Collection
+    {
+        return $this->recipeIngredients;
+    }
+
+    public function addRecipeIngredient(IngredientRecipe $recipeIngredient): self
+    {
+        if (!$this->recipeIngredients->contains($recipeIngredient)) {
+            $this->recipeIngredients->add($recipeIngredient);
+            $recipeIngredient->addRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipeIngredient(IngredientRecipe $recipeIngredient): self
+    {
+        if ($this->recipeIngredients->removeElement($recipeIngredient)) {
+            $recipeIngredient->removeRecipe($this);
+        }
 
         return $this;
     }

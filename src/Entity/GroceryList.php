@@ -18,14 +18,15 @@ class GroceryList
     #[ORM\Column]
     private ?int $quantity = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $shop = null;
-
     #[ORM\Column]
     private ?bool $priority = null;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'groceryLists')]
     private Collection $ingredients;
+
+    #[ORM\ManyToOne(inversedBy: 'groceryLists')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Shop $shop = null;
 
     public function __construct()
     {
@@ -45,18 +46,6 @@ class GroceryList
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getShop(): ?string
-    {
-        return $this->shop;
-    }
-
-    public function setShop(?string $shop): self
-    {
-        $this->shop = $shop;
 
         return $this;
     }
@@ -93,6 +82,18 @@ class GroceryList
     public function removeIngredient(Ingredient $ingredient): self
     {
         $this->ingredients->removeElement($ingredient);
+
+        return $this;
+    }
+
+    public function getShop(): ?Shop
+    {
+        return $this->shop;
+    }
+
+    public function setShop(?Shop $shop): self
+    {
+        $this->shop = $shop;
 
         return $this;
     }
