@@ -93,6 +93,8 @@ class SubcategoryFixtures extends Fixture
                     ->setCategory($category)
                     ->setSubcategory($subcategoryInput);
                 $manager->persist($subcategory);
+
+                $this->addReference('subcategory_' . str_replace(' ', '_', $subcategoryInput), $subcategory);
             }
         }
 

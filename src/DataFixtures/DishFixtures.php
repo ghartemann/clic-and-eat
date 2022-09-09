@@ -2,15 +2,29 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Dish;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class DishFixtures extends Fixture
 {
+    public const DISHES = [
+        'Apéro',
+        'Dessert',
+        'Plat',
+    ];
+
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        foreach (self::DISHES as $dishInput) {
+            $dish = new Dish();
+
+            $dish->setName($dishInput);
+
+            $this->addReference('dish_' . $dishInput, $dish);
+
+            $manager->persist($dish);
+        }
 
         $manager->flush();
     }
