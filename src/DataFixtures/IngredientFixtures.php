@@ -11,11 +11,11 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 {
     public const INGREDIENTS = [
         [
-            'name' => 'Riz arborio',
+            'name' => 'riz arborio',
             'subcategory' => 'Pâtes, riz & féculents',
         ],
         [
-            'name' => 'Mozzarella',
+            'name' => 'mozzarella',
             'subcategory' => 'Crèmerie',
         ],
     ];

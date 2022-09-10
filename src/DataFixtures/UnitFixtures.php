@@ -43,8 +43,10 @@ class UnitFixtures extends Fixture
                 ->setName($inputUnit['name'])
                 ->setFullname($inputUnit['fullname']);
             $manager->persist($unit);
-        }
 
+            $this->addReference('unit_' . $inputUnit['name'], $unit);
+        }
+        
         $manager->flush();
     }
 }

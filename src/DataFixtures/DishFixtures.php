@@ -9,9 +9,9 @@ use Doctrine\Persistence\ObjectManager;
 class DishFixtures extends Fixture
 {
     public const DISHES = [
-        'Apéro',
-        'Dessert',
-        'Plat',
+        'apéro',
+        'dessert',
+        'plat',
     ];
 
     public function load(ObjectManager $manager): void

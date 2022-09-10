@@ -9,8 +9,8 @@ use Doctrine\Persistence\ObjectManager;
 class TypeFixtures extends Fixture
 {
     public const TYPES = [
-        'Salé',
-        'Sucré',
+        'salé',
+        'sucré',
     ];
 
     public function load(ObjectManager $manager): void

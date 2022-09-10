@@ -11,23 +11,23 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
 {
     public const RECIPES = [
         [
-            'type' => 'Salé',
-            'title' => 'Arancini',
+            'type' => 'salé',
+            'title' => 'arancini',
             'picture' => 'https://kissmychef.com/wp-content/uploads/2021/01/arancini.png',
             'cookingTime' => 120,
             'prepTime' => 30,
             'restTime' => 0,
-            'ingredients' => ['Riz arborio', 'Mozzarella'],
+            'ingredients' => ['riz arborio', 'mozzarella'],
             'steps' => ['Faire le risotto', 'Faire des boules', 'Paner les boules'],
             'youtube' => '',
             'url' => '',
             'doc' => '',
-            'book' => 'Cucina',
+            'book' => 'cucina',
             'page' => 140,
             'vg' => true,
             'servings' => 4,
             'notes' => 'C\'est bon',
-            'dish_type' => 'Plat',
+            'dish_type' => 'plat',
         ],
     ];
 
@@ -55,7 +55,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
                 ->setDishType($this->getReference('dish_' . $recipeInput['dish_type']));
 
             foreach ($recipeInput['ingredients'] as $recipeIngredient) {
-                $recipe->addRecipeIngredient($this->getReference('ingredient_' . str_replace(' ', '_', $recipeIngredient)));
+                $recipe->addRecipeIngredient($this->getReference('ingredientRecipe_' . str_replace(' ', '_', $recipeIngredient)));
             }
 
             $manager->persist($recipe);

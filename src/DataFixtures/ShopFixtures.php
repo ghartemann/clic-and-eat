@@ -9,9 +9,9 @@ use Doctrine\Persistence\ObjectManager;
 class ShopFixtures extends Fixture
 {
     public const SHOPS = [
-        'Supermarché',
-        'Magasin bio',
-        'Marché',
+        'supermarché',
+        'magasin bio',
+        'marché',
     ];
 
     public function load(ObjectManager $manager): void
@@ -21,6 +21,8 @@ class ShopFixtures extends Fixture
             $shop
                 ->setName($shopInput);
             $manager->persist($shop);
+
+            $this->addReference('shop_' . str_replace(' ', '_', $shopInput), $shop);
         }
 
         $manager->flush();
