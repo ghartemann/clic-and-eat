@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recettes - {% endblock %}
+
+{% block body %}
+    <h1>Recettes</h1>
+    <main>
+        {% for recipe in recipes %}
+            <h2>
+                <a href="{{ path('app_recipe_show', {'id': recipe.id}) }}">
+                    {{ recipe.title }}
+            </h2>
+            <img src="{{ recipe.picture }}" alt="Image du plat {{ recipe.title }}">
+        {% endfor %}
+    </main>
+{% endblock %}

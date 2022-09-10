@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Clic & Eat</h1>
+
+    <ul>
+        <li>
+            <a href="{{ path('app_recipe_index') }}">Recettes</a>
+        </li>
+        <li>
+            <a href="{{ path('app_grocery_list_index') }}">Liste de courses</a>
+        </li>
+        {% if not app.user %}
+            <li>
+                <a href="{{ path('app_login') }}">Connexion</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
