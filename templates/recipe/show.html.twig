@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ recipe.title }} - {% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_recipe_index') }}">
+        <button class="btn btn-primary">Retour</button>
+    </a>
+    <h1>{{ recipe.title|capitalize }}</h1>
+    <main>
+        <img src="{{ recipe.picture }}" alt="Photo de : {{ recipe.title }}">
+
+        <section>
+            <h2>Informations</h2>
+            <p>Type : {{ recipe.type.type }}</p>
+
+            <p>Sous-type : {{ recipe.dishType.name }}</p>
+
+            <p>Végétarien :
+                {% if recipe.vg %}
+                    🌱
+                {% else %}
+                    🥩
+                {% endif %}
+            </p>
+
+            {% if recipe.book %}
+                <p>Livre : {{ recipe.book }}, p. {{ recipe.page }}</p>
+            {% endif %}
+
+            {% if recipe.url %}
+                <p>URL : {{ recipe.url }}</p>
+            {% endif %}
+
+            {% if recipe.youtube %}
+                <p>Youtube : {{ recipe.youtube }}</p>
+            {% endif %}
+
+            <p>Temps de préparation :
+                {% if recipe.prepTime >= 60 %}
+                    {{ (recipe.prepTime / 60)|round(0, 'floor') }} heures {{ recipe.prepTime % 60 }} minutes
+                {% else %}
+                    {{ recipe.prepTime }} minutes
+                {% endif %}
+            </p>
+            <p>Temps de cuisson :
+                {% if recipe.cookingTime >= 60 %}
+                    {{ (recipe.cookingTime / 60)|round(0, 'floor') }} heures {{ recipe.cookingTime % 60 }} minutes
+                {% else %}
+                    {{ recipe.cookingTime }} minutes
+                {% endif %}
+            </p>
+
+            <p>Pour {{ recipe.servings }} personnes</p>
+        </section>
+
+        <section>
+            <h2>Ingrédients</h2>
+            <ul>
+                {% for recipeIngredient in recipe.recipeIngredients %}
+                    <li>{{ recipeIngredient.ingredient.name|capitalize }}
+                        : {{ recipeIngredient.quantity }} {{ recipeIngredient.unit.name }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Étapes de préparation</h2>
+            <ol>
+                {% for step in recipe.steps %}
+                    <li>{{ step }}</li>
+                {% endfor %}
+            </ol>
+        </section>
+
+        <section>
+            <h2>Notes</h2>
+            <p>{{ recipe.notes }}</p>
+        </section>
+    </main>
+{% endblock %}
