@@ -18,15 +18,12 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $category = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $subcategory = null;
-
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Ingredient::class)]
-    private Collection $ingredients;
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Subcategory::class)]
+    private Collection $subcategories;
 
     public function __construct()
     {
-        $this->ingredients = new ArrayCollection();
+        $this->subcategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,42 +43,30 @@ class Category
         return $this;
     }
 
-    public function getSubcategory(): ?string
-    {
-        return $this->subcategory;
-    }
-
-    public function setSubcategory(?string $subcategory): self
-    {
-        $this->subcategory = $subcategory;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Ingredient>
+     * @return Collection<int, Subcategory>
      */
-    public function getIngredients(): Collection
+    public function getSubcategories(): Collection
     {
-        return $this->ingredients;
+        return $this->subcategories;
     }
 
-    public function addIngredient(Ingredient $ingredient): self
+    public function addSubcategory(Subcategory $subcategory): self
     {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients->add($ingredient);
-            $ingredient->setCategory($this);
+        if (!$this->subcategories->contains($subcategory)) {
+            $this->subcategories->add($subcategory);
+            $subcategory->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeIngredient(Ingredient $ingredient): self
+    public function removeSubcategory(Subcategory $subcategory): self
     {
-        if ($this->ingredients->removeElement($ingredient)) {
+        if ($this->subcategories->removeElement($subcategory)) {
             // set the owning side to null (unless already changed)
-            if ($ingredient->getCategory() === $this) {
-                $ingredient->setCategory(null);
+            if ($subcategory->getCategory() === $this) {
+                $subcategory->setCategory(null);
             }
         }
 

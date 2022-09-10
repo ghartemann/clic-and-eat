@@ -19,23 +19,24 @@ class Ingredient
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $note = null;
-
     #[ORM\ManyToMany(targetEntity: Recipe::class, mappedBy: 'ingredients')]
     private Collection $recipes;
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
+    private ?Subcategory $subcategory = null;
 
     #[ORM\ManyToMany(targetEntity: GroceryList::class, mappedBy: 'ingredients')]
     private Collection $groceryLists;
+
+    #[ORM\OneToMany(mappedBy: 'Ingredient', targetEntity: IngredientRecipe::class)]
+    private Collection $recipeIngredients;
 
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
         $this->groceryLists = new ArrayCollection();
+        $this->recipeIngredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,18 +52,6 @@ class Ingredient
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getNote(): ?string
-    {
-        return $this->note;
-    }
-
-    public function setNote(?string $note): self
-    {
-        $this->note = $note;
 
         return $this;
     }
@@ -94,14 +83,14 @@ class Ingredient
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getSubcategory(): ?Subcategory
     {
-        return $this->category;
+        return $this->subcategory;
     }
 
-    public function setCategory(?Category $category): self
+    public function setSubcategory(?Subcategory $subcategory): self
     {
-        $this->category = $category;
+        $this->subcategory = $subcategory;
 
         return $this;
     }
@@ -128,6 +117,36 @@ class Ingredient
     {
         if ($this->groceryLists->removeElement($groceryList)) {
             $groceryList->removeIngredient($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, IngredientRecipe>
+     */
+    public function getRecipeIngredients(): Collection
+    {
+        return $this->recipeIngredients;
+    }
+
+    public function addRecipeIngredient(IngredientRecipe $recipeIngredient): self
+    {
+        if (!$this->recipeIngredients->contains($recipeIngredient)) {
+            $this->recipeIngredients->add($recipeIngredient);
+            $recipeIngredient->setIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipeIngredient(IngredientRecipe $recipeIngredient): self
+    {
+        if ($this->recipeIngredients->removeElement($recipeIngredient)) {
+            // set the owning side to null (unless already changed)
+            if ($recipeIngredient->getIngredient() === $this) {
+                $recipeIngredient->setIngredient(null);
+            }
         }
 
         return $this;
