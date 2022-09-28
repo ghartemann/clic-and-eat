@@ -31,8 +31,8 @@ class Recipe
     #[ORM\Column(nullable: true)]
     private ?int $restTime = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $steps = [];
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $steps = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $youtube = null;
@@ -144,12 +144,12 @@ class Recipe
         return $this;
     }
 
-    public function getSteps(): array
+    public function getSteps(): string
     {
         return $this->steps;
     }
 
-    public function setSteps(?array $steps): self
+    public function setSteps(?string $steps): self
     {
         $this->steps = $steps;
 

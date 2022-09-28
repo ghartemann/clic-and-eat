@@ -18,7 +18,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
             'prepTime' => 30,
             'restTime' => 0,
             'ingredients' => ['riz arborio', 'mozzarella'],
-            'steps' => ['Faire le risotto', 'Faire des boules', 'Paner les boules'],
+            'steps' => 'Faire le risotto/Faire des boules/Paner les boules',
             'youtube' => '',
             'url' => '',
             'doc' => '',
@@ -55,7 +55,9 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
                 ->setDishType($this->getReference('dish_' . $recipeInput['dish_type']));
 
             foreach ($recipeInput['ingredients'] as $recipeIngredient) {
-                $recipe->addRecipeIngredient($this->getReference('ingredientRecipe_' . str_replace(' ', '_', $recipeIngredient)));
+                $recipe->addRecipeIngredient(
+                    $this->getReference('ingredientRecipe_' . str_replace(' ', '_', $recipeIngredient))
+                );
             }
 
             $manager->persist($recipe);

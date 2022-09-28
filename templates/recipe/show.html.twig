@@ -67,7 +67,7 @@
         <section>
             <h2>Étapes de préparation</h2>
             <ol>
-                {% for step in recipe.steps %}
+                {% for step in recipe.steps|split('/') %}
                     <li>{{ step }}</li>
                 {% endfor %}
             </ol>
@@ -77,5 +77,7 @@
             <h2>Notes</h2>
             <p>{{ recipe.notes }}</p>
         </section>
+
+        {% include 'recipe/_delete_form.html.twig' %}
     </main>
 {% endblock %}

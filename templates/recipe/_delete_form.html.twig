@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row d-flex justify-content-center m-3">
+        <div class="col-6 d-flex justify-content-center">
+            <form method="post" action="{{ path('app_recipe_delete', {'id': recipe.id}) }}"
+                  onsubmit="return confirm('Êtes-vous sûr.e de vouloir supprimer cette recette ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
+                <button type="submit" class="btn btn-secondary text-white">Supprimer</button>
+            </form>
+        </div>
+    </div>
+</div>
