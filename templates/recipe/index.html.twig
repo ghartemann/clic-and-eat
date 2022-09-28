@@ -4,6 +4,11 @@
 
 {% block body %}
     <h1>Recettes</h1>
+    <div>
+        <a href="{{ path('app_recipe_new') }}">
+            <button class="btn btn-primary">Ajouter une recette</button>
+        </a>
+    </div>
     <main>
         {% for recipe in recipes %}
             <h2>
