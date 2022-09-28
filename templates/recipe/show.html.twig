@@ -25,7 +25,7 @@
             </p>
 
             {% if recipe.book %}
-                <p>Livre : {{ recipe.book }}, p. {{ recipe.page }}</p>
+                <p>Livre : {{ recipe.book|capitalize }}, p. {{ recipe.page }}</p>
             {% endif %}
 
             {% if recipe.url %}

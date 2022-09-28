@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une recette - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1 class="text-primary text-center mb-5">Ajouter une recette</h1>
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-6">
+                {{ include('recipe/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+
+    <a href="{{ path('app_recipe_index') }}">
+        <button class="btn btn-secondary text-white m-4">Retour à la liste</button>
+    </a>
+{% endblock %}
